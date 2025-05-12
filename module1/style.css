@@ -1,0 +1,148 @@
+/* === General Reset === */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+}
+
+/* === Topbar === */
+.topbar {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* === Navigation Bar === */
+.navmenu {
+    background-color: white;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.navmenu a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #1e3a5f;
+    font-weight: bold;
+}
+
+.navmenu a.active {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.navmenu .logout {
+    margin-left: auto;
+    color: red;
+}
+
+/* === Sidebar === */
+.sidebar-panel {
+    width: 220px;
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    float: left;
+}
+
+.sidebar-panel h4 {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.sidebar-panel a {
+    display: block;
+    text-decoration: none;
+    color: #1e3a5f;
+    font-weight: 500;
+    margin-bottom: 12px;
+    padding-left: 10px;
+}
+
+/* === Main Content === */
+.main {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* === Card === */
+.card {
+    background: white;
+    padding: 20px;
+    margin-left: 300px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+
+.card h3 {
+    color: #1e3a5f;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.card form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.card form button {
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.data-table {
+    width: 78%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #1e3a5f;
+    color: white;
+}
+
