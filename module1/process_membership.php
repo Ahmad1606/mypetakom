@@ -1,6 +1,6 @@
 <?php
-include 'config_all.php';
-include 'connect.php';
+include '../db/config_all.php';
+include '../db/connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['MembershipID'], $_POST['action'])) {
     $id = $_POST['MembershipID'];

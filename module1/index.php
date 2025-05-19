@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Login - MyPetakom</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
 <div class="login-container">

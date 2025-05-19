@@ -1,5 +1,5 @@
 <?php
-include 'dashboard_layout.php';
+include '../layout/dashboard_layout.php';
 
 // Fetch student membership applications
 $sql = "SELECT m.MembershipID, s.Name, s.Course, m.StudentCard, m.Status
