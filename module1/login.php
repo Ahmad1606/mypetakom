@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'connect.php';
+include '../db/connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $UserID = $_POST['UserID'];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: admin_dashboard.php");
                     break;
                 case 'Event advisor':
-                    header("Location: advisor_dashboard.php");
+                    header("Location: ../module2/advisor_dashboard.php");
                     break;
                 case 'Student':
                     header("Location: student_dashboard.php");

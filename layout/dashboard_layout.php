@@ -1,7 +1,7 @@
 <?php
 // dashboard_layout.php
-include 'config_all.php';
-include 'connect.php';
+include '../db/config_all.php';
+include '../db/connect.php';
 
 $UserID = $_SESSION['UserID'];
 $Role = $_SESSION['Role'];
@@ -20,7 +20,7 @@ $stmt->close();
 <html>
 <head>
     <title><?= $Role ?> Dashboard - MyPetakom</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
 
@@ -30,7 +30,7 @@ $stmt->close();
     </div> -->
     <div class="container">
         <span class="text">MyPetakom</span>
-        <img src="images/logoPetakom.png" alt="Logo" with="65" height="65">
+        <img src="../images/logoPetakom.png" alt="Logo" with="65" height="65">
     </div>
     <div class="topbar-right">
         <span><?= htmlspecialchars($Role) ?>: <?= htmlspecialchars($Name) ?></span>

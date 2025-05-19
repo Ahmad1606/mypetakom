@@ -1,5 +1,5 @@
 <?php
-include 'dashboard_layout.php';
+include '../layout/dashboard_layout.php';
 
 // Fetch membership status
 $UserID = $_SESSION['UserID'];

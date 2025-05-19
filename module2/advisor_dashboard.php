@@ -1,5 +1,5 @@
 <?php
-include 'dashboard_layout.php';
+include '../layout/dashboard_layout.php';
 ?>
 
 <h2>Welcome, <?= htmlspecialchars($Name) ?></h2>

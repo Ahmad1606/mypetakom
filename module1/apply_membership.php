@@ -1,6 +1,6 @@
 <?php
-include 'config_all.php';
-include 'connect.php';
+include '../db/config_all.php';
+include '../db/connect.php';
 
 $UserID = $_SESSION['UserID'];
 
