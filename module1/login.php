@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redirect to role-specific dashboard
             switch ($Role) {
-                case 'Petakom administrator':
+                case 'PA':
                     header("Location: admin_dashboard.php");
                     break;
-                case 'Event advisor':
+                case 'EA':
                     header("Location: ../module2/advisor_dashboard.php");
                     break;
-                case 'Student':
+                case 'ST':
                     header("Location: student_dashboard.php");
                     break;
             }

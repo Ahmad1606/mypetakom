@@ -11,7 +11,9 @@ $stmt->execute();
 $stmt->bind_result($Status);
 $stmt->fetch();
 $stmt->close();
+
 ?>
+
 
 <h2>Register Membership</h2>
 

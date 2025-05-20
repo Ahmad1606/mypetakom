@@ -8,7 +8,8 @@ $Role = $_SESSION['Role'];
 $Name = "";
 
 // Get user name
-$stmt = $conn->prepare("SELECT Name FROM " . str_replace(" ", "_", ucfirst($Role)) . " WHERE UserID = ?");
+$table = ($Role === "ST") ? "user" : (($Role === "EA") ? "user" : (($Role === "PA") ? "user" : "user"));
+$stmt = $conn->prepare("SELECT Name FROM $table WHERE UserID = ?");
 $stmt->bind_param("s", $UserID);
 $stmt->execute();
 $stmt->bind_result($Name);
@@ -50,16 +51,16 @@ $stmt->close();
 <div class="sidebar-panel">
     <h4><?= ucfirst($Role) ?> Menu</h4>
 
-    <?php if ($Role === "Student"): ?>
+    <?php if ($Role === "ST"): ?>
         <a href="#">👤 User Profile</a>
         <a href="student_membership.php">📋 Register Membership</a>
         <a href="#">📁 My Events</a>
         <a href="#">📊 Attendance</a>
         <a href="#">Merit</a>
-    <?php elseif ($Role === "Petakom administrator"): ?>
+    <?php elseif ($Role === "PA"): ?>
         <a href="manage_membership.php">⚙️ Manage Membership</a>
         <a href="#">👤 User Profiles</a>
-    <?php elseif ($Role === "Event advisor"): ?>
+    <?php elseif ($Role === "EA"): ?>
         <a href="#">👤 User Profile</a>
         <a href="">Advisor Dashboard</a>
         <a href="#">📅 Event Management</a>

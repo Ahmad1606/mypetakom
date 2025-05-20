@@ -25,9 +25,9 @@
 
         <label>Role:</label>
         <div class="role-options">
-            <label><input type="radio" name="Role" value="Student" required> Student</label>
-            <label><input type="radio" name="Role" value="Event advisor"> Event Advisor</label>
-            <label><input type="radio" name="Role" value="Petakom administrator"> Petakom Admin</label>
+            <label><input type="radio" name="Role" value="ST" required> Student</label>
+            <label><input type="radio" name="Role" value="EA"> Event Advisor</label>
+            <label><input type="radio" name="Role" value="PA"> Petakom Admin</label>
         </div>
 
         <button type="submit">Login</button>

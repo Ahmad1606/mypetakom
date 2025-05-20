@@ -2,9 +2,9 @@
 include '../layout/dashboard_layout.php';
 
 // Fetch student membership applications
-$sql = "SELECT m.MembershipID, s.Name, s.Course, m.StudentCard, m.Status
+$sql = "SELECT m.MembershipID, u.Name, m.StudentCard, m.Status
         FROM Membership m
-        JOIN Student s ON m.UserID = s.UserID";
+        JOIN User u ON m.UserID = u.UserID";
 $result = $conn->query($sql);
 ?>
 
@@ -15,7 +15,6 @@ $result = $conn->query($sql);
         <thead>
             <tr>
                 <th>Student Name</th>
-                <th>Course</th>
                 <th>Student Card</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -25,7 +24,6 @@ $result = $conn->query($sql);
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
                 <td><?= htmlspecialchars($row['Name']) ?></td>
-                <td><?= htmlspecialchars($row['Course']) ?></td>
                 <td><a href="<?= $row['StudentCard'] ?>" target="_blank">View</a></td>
                 <td><?= htmlspecialchars($row['Status'] ?? 'Pending') ?></td>
                 <td>
