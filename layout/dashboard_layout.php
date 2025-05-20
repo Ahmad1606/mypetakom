@@ -104,20 +104,20 @@ $stmt->close();
               <a href="#" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                Advisor Dashboard
+              <a href="../module2/advisor_dashboard.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-reception-4 me-2"></i>Advisor Dashboard
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0 text-danger">
-                <i class="bi bi-calendar-event-fill me-2 text-danger"></i>Event Management
+              <a href="../module2/manage_event.php" class="list-group-item list-group-item-action border-0 ">
+                <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                Committee Management
+              <a href="../module2/manage_committee.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i>Committee Management
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                Merit Application
+              <a href="../module2/merit_application.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-journal me-2"></i>Merit Application
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-receipt me-2"></i>QR Codes
+              <a href="../module2/event_qr.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-qr-code-scan me-2"></i>QR Codes
               </a>
             <?php endif; ?>
           </div>
