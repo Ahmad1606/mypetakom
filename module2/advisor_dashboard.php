@@ -1,6 +1,17 @@
 <?php
-include '../layout/dashboard_layout.php';
+session_start();
+include '../layout/dashboard_layout.php';  // Adjust the path if needed
 ?>
 
-<h2>Welcome, <?= htmlspecialchars($Name) ?></h2>
-<p>This is the Event Advisor Dashboard. Use the menu to manage events and QR codes..</p>
+<!-- Page-specific content here -->
+<div class="p-4 bg-white shadow rounded-3">
+  <h3>Welcome to the Dashboard</h3>
+  <p>This is your dashboard content, displayed based on role: <?= htmlspecialchars($Role) ?>.</p>
+</div>
+
+<!-- Close tags from dashboard_layout.php -->
+      </div> <!-- .col-md-9 -->
+    </div> <!-- .row -->
+  </div> <!-- .container-fluid -->
+</body>
+</html>

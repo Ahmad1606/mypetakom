@@ -1,15 +1,15 @@
 <?php
 // dashboard_layout.php
+
 include '../db/config_all.php';
 include '../db/connect.php';
 
 $UserID = $_SESSION['UserID'];
-$Role = $_SESSION['Role'];
+$Role = $_SESSION['Role']; // ST, EA, PA
 $Name = "";
 
-// Get user name
-$table = ($Role === "ST") ? "user" : (($Role === "EA") ? "user" : (($Role === "PA") ? "user" : "user"));
-$stmt = $conn->prepare("SELECT Name FROM $table WHERE UserID = ?");
+// Get user name (simplified since all roles read from `user`)
+$stmt = $conn->prepare("SELECT Name FROM user WHERE UserID = ?");
 $stmt->bind_param("s", $UserID);
 $stmt->execute();
 $stmt->bind_result($Name);
@@ -18,58 +18,112 @@ $stmt->close();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title><?= $Role ?> Dashboard - MyPetakom</title>
-    <link rel="stylesheet" href="../styles/style.css">
+  <meta charset="UTF-8">
+  <title>MyPetakom</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<div class="topbar">
-    <!-- <div style="display:flex"><strong>MyPetakom</strong>
-        <span> <img src="images/logoPetakom.png" alt="logo" with="50" height="50"></span>
-    </div> -->
-    <div class="container">
-        <span class="text">MyPetakom</span>
-        <img src="../images/logoPetakom.png" alt="Logo" with="65" height="65">
+  <!-- Top Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark px-4" style="background-color: #0f214d;">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="../images/logoPetakom.png" alt="Logo" width="75" height="75" class="me-2">
+      <span><b>MyPetakom</b></span>
+    </a>
+    <div class="ms-auto d-flex align-items-center">
+      <span class="text-white me-3">
+        <?= htmlspecialchars($Name) ?>
+      </span>
+      <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+        <?= ($Role === "ST" ? "ST" : ($Role === "PA" ? "PA" : "EA")) ?>
+      </div>
     </div>
-    <div class="topbar-right">
-        <span><?= htmlspecialchars($Role) ?>: <?= htmlspecialchars($Name) ?></span>
-        <div class="avatar"><?= strtoupper(substr($Name, 0, 1)) ?></div>
+  </nav>
+
+  <!-- Nav Pills + Logout -->
+  <div class="bg-white border-bottom px-4 py-2">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+      <ul class="nav nav-pills mb-0">
+        <li class="nav-item">
+          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active text-white' : 'text-primary' ?>" href="dashboard.php"><b>Dashboard</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'events.php' ? 'active text-white' : 'text-primary' ?>" href="events.php"><b>Events</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><b>Committees</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><b>Merit Application</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><b>QR Codes</b></a>
+        </li>
+      </ul>
+      <a href="../module1/logout.php" class="btn btn-danger rounded-pill px-4">Logout</a>
     </div>
-</div>
+  </div>
 
-<div class="navmenu">
-    <a href="#" class="active">Dashboard</a>
-    <a href="">Events</a>
-    <a href="">Committees</a>
-    <a href="">Merit Application</a>
-    <a href="">QR Codes</a>
-    <a href="logout.php" class="logout">Logout</a>
-</div>
+  <!-- Main Layout -->
+  <div class="container-fluid mt-3">
+    <div class="row">
+      
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 mb-4">
+        <div class="card shadow-sm rounded-4">
+          <div class="card-header bg-primary text-white fw-bold text-center">
+            <?= ($Role === "ST" ? "Student" : ($Role === "PA" ? "Administrator" : "Event advisor")) ?> Menu
+          </div>
+          <div class="list-group list-group-flush">
+            <?php if ($Role === "ST"): ?>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-person-fill me-2"></i>User Profile
+              </a>
+              <a href="student_membership.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-card-heading me-2"></i>Register Membership
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-folder-fill me-2"></i>My Events (soon)
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-calendar2-week me-2"></i>Attendance (soon)
+              </a>
 
-<div class="sidebar-panel">
-    <h4><?= ucfirst($Role) ?> Menu</h4>
+            <?php elseif ($Role === "PA"): ?>
+              <a href="manage_membership.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-gear-fill me-2"></i>Manage Membership
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i>User Profiles
+              </a>
 
-    <?php if ($Role === "ST"): ?>
-        <a href="#">👤 User Profile</a>
-        <a href="student_membership.php">📋 Register Membership</a>
-        <a href="#">📁 My Events</a>
-        <a href="#">📊 Attendance</a>
-        <a href="#">Merit</a>
-    <?php elseif ($Role === "PA"): ?>
-        <a href="manage_membership.php">⚙️ Manage Membership</a>
-        <a href="#">👤 User Profiles</a>
-    <?php elseif ($Role === "EA"): ?>
-        <a href="#">👤 User Profile</a>
-        <a href="">Advisor Dashboard</a>
-        <a href="#">📅 Event Management</a>
-        <a href="">Commitee Management</a>
-        <a href="">Merit application</a>
-        <a href="#">🧾 QR Codes</a>
-    <?php endif; ?>
-</div>
+            <?php elseif ($Role === "EA"): ?>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-person-fill me-2"></i>User Profile
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                Advisor Dashboard
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0 text-danger">
+                <i class="bi bi-calendar-event-fill me-2 text-danger"></i>Event Management
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                Committee Management
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                Merit Application
+              </a>
+              <a href="#" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-receipt me-2"></i>QR Codes
+              </a>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
 
-</body>
-</html>
-<?php
+      <!-- Dynamic Content Section -->
+      <div class="col-md-9 col-lg-10">
+        
