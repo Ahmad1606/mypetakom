@@ -3,24 +3,25 @@
 <html>
 <head>
     <title>Login - MyPetakom</title>
-    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
+
 <div class="login-container">
     <h2>Login to MyPetakom</h2>
 
     <?php
     if (isset($_SESSION['LoginError'])) {
-        echo "<div class='error'>{$_SESSION['LoginError']}</div>";
+        echo "<div class='error'>" . htmlspecialchars($_SESSION['LoginError']) . "</div>";
         unset($_SESSION['LoginError']);
     }
     ?>
 
     <form method="POST" action="login.php">
-        <label>User ID:</label>
+        <label for="UserID">User ID:</label>
         <input type="text" name="UserID" required>
 
-        <label>Password:</label>
+        <label for="Password">Password:</label>
         <input type="password" name="Password" required>
 
         <label>Role:</label>
@@ -33,5 +34,6 @@
         <button type="submit">Login</button>
     </form>
 </div>
+
 </body>
 </html>

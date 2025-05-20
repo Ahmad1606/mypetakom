@@ -1,7 +1,8 @@
 <?php
-include '../layout/dashboard_layout.php';
+include 'dashboard_layout.php';
+include 'connect.php';
 
-// Fetch student membership applications
+// Fetch membership applications with user info
 $sql = "SELECT m.MembershipID, u.Name, m.StudentCard, m.Status
         FROM Membership m
         JOIN User u ON m.UserID = u.UserID";
@@ -9,6 +10,13 @@ $result = $conn->query($sql);
 ?>
 
 <h2>Manage Membership Applications</h2>
+
+<?php if (isset($_SESSION['message'])): ?>
+    <div class="alert <?= $_SESSION['msg_type'] === 'success' ? 'alert-success' : 'alert-error' ?>">
+        <?= htmlspecialchars($_SESSION['message']) ?>
+    </div>
+    <?php unset($_SESSION['message'], $_SESSION['msg_type']); ?>
+<?php endif; ?>
 
 <?php if ($result->num_rows > 0): ?>
     <table class="data-table">
@@ -24,7 +32,7 @@ $result = $conn->query($sql);
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
                 <td><?= htmlspecialchars($row['Name']) ?></td>
-                <td><a href="<?= $row['StudentCard'] ?>" target="_blank">View</a></td>
+                <td><a href="uploads/<?= htmlspecialchars($row['StudentCard']) ?>" target="_blank">View</a></td>
                 <td><?= htmlspecialchars($row['Status'] ?? 'Pending') ?></td>
                 <td>
                     <form method="POST" action="process_membership.php" style="display:flex; gap:5px;">

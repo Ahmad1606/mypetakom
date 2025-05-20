@@ -10,6 +10,7 @@ $q->bind_param("s", $UserID);
 $q->execute();
 $q->store_result();
 
+
 if ($q->num_rows > 0) {
     $_SESSION['message'] = "You already applied.";
     $_SESSION['msg_type'] = "error";
