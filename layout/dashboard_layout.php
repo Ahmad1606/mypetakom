@@ -59,9 +59,6 @@ $stmt->close();
         <li class="nav-item">
           <a class="nav-link text-primary" href="#"><b>Merit Application</b></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>QR Codes</b></a>
-        </li>
       </ul>
       <a href="../module1/logout.php" class="btn btn-danger rounded-pill px-4">Logout</a>
     </div>
@@ -107,7 +104,7 @@ $stmt->close();
               <a href="../module2/advisor_dashboard.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-reception-4 me-2"></i>Advisor Dashboard
               </a>
-              <a href="../module2/manage_eventV2.php" class="list-group-item list-group-item-action border-0 ">
+              <a href="../module2/manage_eventV3.php" class="list-group-item list-group-item-action border-0 ">
                 <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
               <a href="../module2/manage_committee.php" class="list-group-item list-group-item-action border-0">
@@ -115,9 +112,6 @@ $stmt->close();
               </a>
               <a href="../module2/merit_application.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-journal me-2"></i>Merit Application
-              </a>
-              <a href="../module2/event_qr.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-qr-code-scan me-2"></i>QR Codes
               </a>
             <?php endif; ?>
           </div>
