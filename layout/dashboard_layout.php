@@ -104,7 +104,7 @@ $stmt->close();
               <a href="../module2/advisor_dashboard.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-reception-4 me-2"></i>Advisor Dashboard
               </a>
-              <a href="../module2/manage_eventV3.php" class="list-group-item list-group-item-action border-0 ">
+              <a href="../module2/manage_event.php" class="list-group-item list-group-item-action border-0 ">
                 <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
               <a href="../module2/manage_committee.php" class="list-group-item list-group-item-action border-0">
