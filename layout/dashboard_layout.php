@@ -96,7 +96,7 @@ $stmt->close();
               <a href="manage_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-gear-fill me-2"></i>Manage Membership
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
+              <a href="admin_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>User Profiles
               </a>
 
