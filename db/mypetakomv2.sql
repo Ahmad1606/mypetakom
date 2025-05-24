@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2025 at 04:59 PM
+-- Generation Time: May 24, 2025 at 07:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -165,7 +165,7 @@ CREATE TABLE `event` (
   `Date` date NOT NULL,
   `Time` time NOT NULL,
   `Location` varchar(100) NOT NULL,
-  `Status` enum('Approved','Rejected') NOT NULL,
+  `Status` enum('Completed','Cancelled','Upcoming') NOT NULL,
   `ApprovalLetter` varchar(255) NOT NULL,
   `QRCode` varchar(255) NOT NULL,
   `UserID` varchar(10) NOT NULL
@@ -176,16 +176,16 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`EventID`, `Title`, `Description`, `Date`, `Time`, `Location`, `Status`, `ApprovalLetter`, `QRCode`, `UserID`) VALUES
-('E001', 'Tech Talk 2024', 'A talk on latest technology trends', '2024-06-10', '10:00:00', 'DK1', 'Approved', 'approval_E001.pdf', 'qr_E001.png', 'EA001'),
-('E002', 'Career Fair', 'Student career fair with multiple companies', '2024-06-15', '09:00:00', 'Hall A', 'Approved', 'approval_E002.pdf', 'qr_E002.png', 'EA001'),
-('E003', 'Innovation Expo', 'Showcase of student innovation projects', '2024-06-20', '11:00:00', 'Expo Centre', '', 'approval_E003.pdf', 'qr_E003.png', 'EA002'),
-('E004', 'Coding Competition', 'A day-long coding hackathon', '2024-06-25', '08:00:00', 'Lab 3', 'Rejected', 'approval_E004.pdf', 'qr_E004.png', 'EA002'),
-('E005', 'Entrepreneurship Talk', 'Talk from successful alumni', '2024-07-01', '14:00:00', 'DK2', 'Approved', 'approval_E005.pdf', 'qr_E005.png', 'EA003'),
-('E006', 'Digital Marketing Workshop', 'Workshop on social media marketing', '2024-07-05', '10:00:00', 'Room B2', 'Approved', 'approval_E006.pdf', 'qr_E006.png', 'EA003'),
-('E007', 'Sports Day', 'Annual university sports day', '2024-07-10', '08:30:00', 'Stadium', '', 'approval_E007.pdf', 'qr_E007.png', 'EA001'),
-('E008', 'Green Campus Campaign', 'Environmental awareness campaign', '2024-07-15', '13:00:00', 'Field Area', 'Approved', 'approval_E008.pdf', 'qr_E008.png', 'EA002'),
-('E009', 'Photography Contest', 'Photo contest for students', '2024-07-20', '12:00:00', 'Gallery', 'Rejected', 'approval_E009.pdf', 'qr_E009.png', 'EA003'),
-('E010', 'Debate Championship', 'Inter-university debate tournament', '2024-07-25', '09:00:00', 'Auditorium', 'Approved', 'approval_E010.pdf', 'qr_E010.png', 'EA002');
+('E001', 'Tech Talk 2024', 'A talk on latest technology trends', '2024-06-10', '10:00:00', 'DK1', 'Completed', 'approval_E001.pdf', 'qr_E001.png', 'EA001'),
+('E002', 'Career Fair', 'Student career fair with multiple companies', '2024-06-15', '09:00:00', 'Hall A', 'Completed', 'approval_E002.pdf', 'qr_E002.png', 'EA001'),
+('E003', 'Innovation Expo', 'Showcase of student innovation projects', '2024-06-20', '11:00:00', 'Expo Centre', 'Completed', 'approval_E003.pdf', 'qr_E003.png', 'EA002'),
+('E004', 'Coding Competition', 'A day-long coding hackathon', '2024-06-25', '08:00:00', 'Lab 3', 'Upcoming', 'approval_E004.pdf', 'qr_E004.png', 'EA002'),
+('E005', 'Entrepreneurship Talk', 'Talk from successful alumni', '2024-07-01', '14:00:00', 'DK2', 'Completed', 'approval_E005.pdf', 'qr_E005.png', 'EA003'),
+('E006', 'Digital Marketing Workshop', 'Workshop on social media marketing', '2024-07-05', '10:00:00', 'Room B2', 'Upcoming', 'approval_E006.pdf', 'qr_E006.png', 'EA003'),
+('E007', 'Sports Day', 'Annual university sports day', '2024-07-10', '08:30:00', 'Stadium', 'Cancelled', 'approval_E007.pdf', 'qr_E007.png', 'EA001'),
+('E008', 'Green Campus Campaign', 'Environmental awareness campaign', '2024-07-15', '13:00:00', 'Field Area', 'Completed', 'approval_E008.pdf', 'qr_E008.png', 'EA002'),
+('E009', 'Photography Contest', 'Photo contest for students', '2024-07-20', '12:00:00', 'Gallery', 'Upcoming', 'approval_E009.pdf', 'qr_E009.png', 'EA003'),
+('E010', 'Debate Championship', 'Inter-university debate tournament', '2024-07-25', '09:00:00', 'Auditorium', 'Completed', 'approval_E010.pdf', 'qr_E010.png', 'EA002');
 
 -- --------------------------------------------------------
 
@@ -309,7 +309,7 @@ INSERT INTO `user` (`UserID`, `Name`, `Role`, `Password`, `Email`, `PhoneNumber`
 ('CB23018', 'Rashid Zaki', 'ST', '$2y$10$stu18', 'rashid@student.ump.edu.my', '013500018'),
 ('CB23019', 'Yasmin Salwa', 'ST', '$2y$10$stu19', 'yasmin@student.ump.edu.my', '013500019'),
 ('CB23020', 'Hakimi Nasrul', 'ST', '$2y$10$stu20', 'hakimi@student.ump.edu.my', '013500020'),
-('EA001', 'Encik Ahmad Farid', 'EA', '$2y$10$ea1', 'farid.ea@ump.edu.my', '0185550011'),
+('EA001', 'Encik Ahmad Farid', 'EA', '$2y$10$i6tHgj55HSsPDBHKGwUwKOI3OhHGGBK.YNr.8HfetamSQoWXGlo2i', 'farid.ea@ump.edu.my', '0185550011'),
 ('EA002', 'Puan Zaleha Osman', 'EA', '$2y$10$ea2', 'zaleha.ea@ump.edu.my', '0185550022'),
 ('EA003', 'Dr. Liyana Yusuf', 'EA', '$2y$10$ea3', 'liyana.ea@ump.edu.my', '0185550033'),
 ('PA001', 'Nur Aisyah Azman', 'PA', '$2y$10$admin1', 'aisyah.pa@ump.edu.my', '0195550011'),
