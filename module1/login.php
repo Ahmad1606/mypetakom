@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_result($storedPassword);
         $stmt->fetch();
 
-        if ($Password === $storedPassword) {
+        // ✅ Compare hashed password
+        if (password_verify($Password, $storedPassword)) {
             $_SESSION['UserID'] = $UserID;
             $_SESSION['Role'] = $Role;
 
