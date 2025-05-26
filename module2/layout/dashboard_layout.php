@@ -54,6 +54,9 @@ $stmt->close();
           <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'events.php' ? 'active text-white' : 'text-primary' ?>" href="events.php"><b>Events</b></a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-primary" href="#"><b>Attendance</b></a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-primary" href="#"><b>Committees</b></a>
         </li>
         <li class="nav-item">

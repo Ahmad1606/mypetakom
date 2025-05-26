@@ -32,7 +32,8 @@ CREATE TABLE `attendance` (
   `UserID` varchar(10) NOT NULL,
   `EventID` varchar(10) NOT NULL,
   `AttendanceTime` time DEFAULT NULL,
-  `Location` varchar(255) DEFAULT NULL
+  `Location` varchar(255) DEFAULT NULL,
+  `AttendanceStatus` enum('Pending','Approved','Rejected') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
