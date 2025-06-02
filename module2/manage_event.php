@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_qr_id'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: manage_eventV3.php?qr_generated=1");
+    header("Location: manage_event.php?qr_generated=1");
     exit;
 }
 ?>
