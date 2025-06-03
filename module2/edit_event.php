@@ -9,8 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_event'])) {
     $time = $_POST['time'];
     $location = $_POST['location'];
     $status = $_POST['status'];
+    $level = $_POST['level'];
 
-    $stmt = $conn->prepare("UPDATE event SET Title = ?, Description = ?, Date = ?, Time = ?, Location = ?, Status = ? WHERE EventID = ?");
+    $stmt = $conn->prepare("UPDATE event SET Title = ?, Description = ?, Date = ?, Time = ?, Location = ?, Status = ?, Level =?, WHERE EventID = ?");
     $stmt->bind_param("sssssss", $title, $description, $date, $time, $location, $status, $eventID);
     
     if ($stmt->execute()) {

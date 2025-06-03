@@ -99,6 +99,9 @@ $stmt->close();
               <a href="admin_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>User Profiles
               </a>
+              <a href="../module2/manage_merit.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-journal me-2"></i>Merit Management
+              </a>
 
             <?php elseif ($Role === "EA"): ?>
               <a href="#" class="list-group-item list-group-item-action border-0">
@@ -110,7 +113,7 @@ $stmt->close();
               <a href="../module2/manage_event.php" class="list-group-item list-group-item-action border-0 ">
                 <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
-              <a href="../module2/manage_committee.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module2/manage_committeeV2.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>Committee Management
               </a>
               <a href="../module2/merit_application.php" class="list-group-item list-group-item-action border-0">

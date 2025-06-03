@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_event'])) {
     $time = $_POST['time'];
     $location = $_POST['location'];
     $status = $_POST['status'];
+    $level = $_POST['level'];
 
     $res = $conn->query("SELECT EventID FROM event ORDER BY EventID DESC LIMIT 1");
     $lastId = ($res && $row = $res->fetch_assoc()) ? intval(substr($row['EventID'], 1)) + 1 : 1;
@@ -28,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_event'])) {
         move_uploaded_file($_FILES['approval_letter']['tmp_name'], $uploadDir . $approvalLetter);
     }
 
-    $stmt = $conn->prepare("INSERT INTO event (EventID, Title, Description, Date, Time, Location, Status, UserID, ApprovalLetter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssss", $eventID, $title, $description, $date, $time, $location, $status, $UserID, $approvalLetter);
+    $stmt = $conn->prepare("INSERT INTO event (EventID, Title, Description, Date, Time, Location, Status, level, UserID, ApprovalLetter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $eventID, $title, $description, $date, $time, $location, $status, $level, $UserID, $approvalLetter);
     $stmt->execute();
     $stmt->close();
 
@@ -190,6 +191,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_qr_id'])) {
           </select>
         </div>
         <div class="mb-2">
+          <label class="form-label">Event Level</label>
+          <select class="form-select" name="level" required>
+            <option value="International">International</option>
+            <option value="National">National</option>
+            <option value="State">State</option>
+            <option value="District">District</option>
+            <option value="UMPSA">UMPSA</option>
+          </select>
+        </div>
+        <div class="mb-2">
           <label class="form-label">Upload Approval Letter (PDF)</label>
           <input type="file" class="form-control" name="approval_letter" accept=".pdf" required>
         </div>
@@ -223,6 +234,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_qr_id'])) {
             <option value="Completed" <?= $row['Status'] === 'Completed' ? 'selected' : '' ?>>Completed</option>
             <option value="Upcoming" <?= $row['Status'] === 'Upcoming' ? 'selected' : '' ?>>Upcoming</option>
             <option value="Cancelled" <?= $row['Status'] === 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Event Level</label>
+          <select name="level" class="form-select">
+            <option value="International" <?= $row['Level'] === 'International' ? 'selected' : '' ?>>International</option>
+            <option value="National" <?= $row['Level'] === 'National' ? 'selected' : '' ?>>National</option>
+            <option value="State" <?= $row['Level'] === 'State' ? 'selected' : '' ?>>State</option>
+            <option value="District" <?= $row['Level'] === 'District' ? 'selected' : '' ?>>District</option>
+            <option value="UMPSA" <?= $row['Level'] === 'UMPSA' ? 'selected' : '' ?>>UMPSA</option>
           </select>
         </div>
       </div>
@@ -292,3 +313,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+      </div>
+    </div> 
+  </div> 
+</body>
+</html>
