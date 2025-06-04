@@ -85,8 +85,11 @@ $stmt->close();
               <a href="student_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-card-heading me-2"></i>Register Membership
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-folder-fill me-2"></i>My Events (soon)
+              <a href="../module2/student_event.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-folder-fill me-2"></i>Events 
+              </a>
+              <a href="../module2/student_committee.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i> My Committee
               </a>
               <a href="#" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-calendar2-week me-2"></i>Attendance (soon)

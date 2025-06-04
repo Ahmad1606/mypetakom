@@ -37,9 +37,9 @@ $meritDistribution = $conn->query("
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <div class="container mt-4">
-    <h2 class="mb-2">Event Advisor Dashboard</h2>
-    <p class="text-muted">Welcome back, <?= $_SESSION['UserID'] ?>!</p>
+    <h3 class="mb-2 fw-bold">Advisor Dashboard</h3>
 
     <!-- Stat Cards -->
     <div class="row g-4 mb-4">

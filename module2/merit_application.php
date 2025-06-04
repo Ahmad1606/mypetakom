@@ -94,7 +94,7 @@ $eventOptions = $events->get_result();
 <!-- Page-specific content here -->
 <div class="p-4 bg-white shadow rounded-3">
   <div class="container mt-5">
-      <h3 class="mb-4">Merit Application</h3>
+      <h3 class="fw-bold">Merit Application</h3>
       <?= $message ?>
 
       <!-- Apply for New Merit -->
