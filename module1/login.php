@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_result($storedPassword);
         $stmt->fetch();
 
-        // ✅ Compare hashed password
+        // Verify hashed password
         if (password_verify($Password, $storedPassword)) {
             $_SESSION['UserID'] = $UserID;
             $_SESSION['Role'] = $Role;
 
-            // Redirect to role-specific dashboard
+            // open the dashboard based to role specific
             switch ($Role) {
                 case 'PA':
                     header("Location: admin_dashboard.php");
