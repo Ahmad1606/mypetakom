@@ -1,18 +1,23 @@
 <?php
+session_start();
 include '../layout/dashboard_layout.php';
+include '../db/connect.php';
 
-$UserID = $_SESSION['UserID'];
+$UserID = isset($_SESSION['UserID']) ? $_SESSION['UserID'] : null;
 $Status = "";
 
-// Check existing application
-$stmt = $conn->prepare("SELECT Status FROM Membership WHERE UserID = ?");
-$stmt->bind_param("s", $UserID);
-$stmt->execute();
-$stmt->bind_result($Status);
-$stmt->fetch();
-$stmt->close();
+// Check if already applied
+if ($UserID) {
+    $sql = "SELECT Status FROM Membership WHERE UserID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $UserID);
+    $stmt->execute();
+    $stmt->bind_result($Status);
+    $stmt->fetch();
+    $stmt->close();
+}
 
-// Determine if form should be shown (new or rejected)
+// allow student if he is still not applied or get rejected
 $canReapply = !$Status || strtolower($Status) === 'rejected';
 ?>
 
@@ -39,13 +44,12 @@ $canReapply = !$Status || strtolower($Status) === 'rejected';
 </div>
 
 <?php if (isset($_SESSION['message'])): ?>
-  <div class="alert alert-<?= $_SESSION['msg_type'] ?> alert-dismissible fade show" role="alert">
+  <div class="alert alert-<?= $_SESSION['msg_type'] ?> alert-dismissible fade show mt-3" role="alert">
     <?= htmlspecialchars($_SESSION['message']) ?>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <?php unset($_SESSION['message'], $_SESSION['msg_type']); ?>
 <?php endif; ?>
-
 
 <script>
   function previewFile(input) {
@@ -71,9 +75,3 @@ $canReapply = !$Status || strtolower($Status) === 'rejected';
     }
   }
 </script>
-
-</div>
-</div>
-</div>
-<?php
-

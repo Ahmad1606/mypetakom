@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PhoneNumber = trim($_POST['PhoneNumber']);
     $Role = $_POST['Role'];
 
-    // Basic validation
+    
     if (!$UserID || !$Name || !$Password || !$Email || !$PhoneNumber || !$Role) {
         $_SESSION['message'] = "Please fill in all required fields.";
         $_SESSION['msg_type'] = "danger";
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Check if UserID already exists
+    // Check if there is UserID
     $check = $conn->prepare("SELECT 1 FROM User WHERE UserID = ?");
     $check->bind_param("s", $UserID);
     $check->execute();
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $check->close();
 
-    // Insert new user
+    // Create new user
     $hashed = password_hash($Password, PASSWORD_DEFAULT);
     $stmt = $conn->prepare("INSERT INTO User (UserID, Name, Role, Password, Email, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $UserID, $Name, $Role, $hashed, $Email, $PhoneNumber);

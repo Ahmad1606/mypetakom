@@ -1,5 +1,4 @@
 <?php
-// dashboard_layout.php
 
 include '../db/config_all.php';
 include '../db/connect.php';
@@ -76,17 +75,17 @@ $stmt->close();
           </div>
           <div class="list-group list-group-flush">
             <?php if ($Role === "ST"): ?>
-              <a href="#" class="list-group-item list-group-item-action border-0">
+              <a href="edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
               <a href="student_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-card-heading me-2"></i>Register Membership
               </a>
               <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-folder-fill me-2"></i>My Events (soon)
+                <i class="bi bi-folder-fill me-2"></i>My Events
               </a>
               <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-calendar2-week me-2"></i>Attendance (soon)
+                <i class="bi bi-calendar2-week me-2"></i>Attendance
               </a>
 
             <?php elseif ($Role === "PA"): ?>
@@ -98,7 +97,7 @@ $stmt->close();
               </a>
 
             <?php elseif ($Role === "EA"): ?>
-              <a href="#" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
               <a href="../module2/advisor_dashboard.php" class="list-group-item list-group-item-action border-0">
