@@ -89,8 +89,6 @@ $stmt->close();
               </a>
               <a href="../module2/student_committee.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i> My Committee
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-folder-fill me-2"></i>My Events
               </a>
               <a href="#" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-calendar2-week me-2"></i>Attendance
@@ -102,6 +100,9 @@ $stmt->close();
               </a>
               <a href="admin_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>User Profiles
+              </a>
+              <a href="../module2/admin_event.php" class="list-group-item list-group-item-action border-0 ">
+                <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
               <a href="../module2/manage_merit.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-journal me-2"></i>Merit Management

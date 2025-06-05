@@ -11,6 +11,7 @@ if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'ST') {
 $userID = $_SESSION['UserID'];
 $mainRoles = ['Leader', 'Secretary', 'Treasurer'];
 
+// Fetch all committee positions for the student
 $query = $conn->prepare("
     SELECT 
         e.EventID, e.Title, e.Date, e.Description AS EventDesc, e.Level, e.Status,
@@ -28,9 +29,9 @@ $result = $query->get_result();
 $positions = [];
 $currentCount = $pastCount = $totalPoints = 0;
 
+// Merit calculation
 function calculateMerit($level, $role) {
-    $main = ['Leader', 'Secretary', 'Treasurer'];
-    $isMain = in_array($role, $main);
+    $isMain = in_array($role, ['Leader', 'Secretary', 'Treasurer']);
     return match ($level) {
         'International' => $isMain ? 100 : 70,
         'National'      => $isMain ? 80 : 50,
