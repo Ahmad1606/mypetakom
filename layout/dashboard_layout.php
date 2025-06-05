@@ -78,10 +78,10 @@ $stmt->close();
           </div>
           <div class="list-group list-group-flush">
             <?php if ($Role === "ST"): ?>
-              <a href="edit_profile.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
-              <a href="student_membership.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/student_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-card-heading me-2"></i>Register Membership
               </a>
               <a href="../module2/student_event.php" class="list-group-item list-group-item-action border-0">
@@ -95,10 +95,10 @@ $stmt->close();
               </a>
 
             <?php elseif ($Role === "PA"): ?>
-              <a href="manage_membership.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/manage_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-gear-fill me-2"></i>Manage Membership
               </a>
-              <a href="admin_profile.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/admin_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>User Profiles
               </a>
               <a href="../module2/admin_event.php" class="list-group-item list-group-item-action border-0 ">
