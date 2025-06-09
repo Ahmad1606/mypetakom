@@ -91,10 +91,10 @@ $stmt->close();
                 <i class="bi bi-people-fill me-2"></i> My Committee
               </a>
               <a href="../module3/list_slots_st.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-calendar2-week me-2"></i>Attendance Slots
+                <i class="bi bi-list-check me-2"></i>Attendance Slots
               </a>
               <a href="../module3/view_myattendance.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-calendar2-week me-2"></i>My Attendance 
+                <i class="bi bi-clock-history me-2"></i>My Attendance 
               </a>
 
             <?php elseif ($Role === "PA"): ?>
@@ -111,7 +111,7 @@ $stmt->close();
                 <i class="bi bi-journal me-2"></i>Merit Management
               </a>
               <a href="../module3/attendance_report.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-journal me-2"></i>Attendance Report
+                <i class="bi bi-bar-chart-line-fill me-2"></i>Attendance Report
               </a>
 
             <?php elseif ($Role === "EA"): ?>
@@ -131,10 +131,10 @@ $stmt->close();
                 <i class="bi bi-journal me-2"></i>Merit Application
               </a>
               <a href="../module3/manage_attendance.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-people-fill me-2"></i>Attendance Slots Management
+                <i class="bi bi-calendar-plus-fill me-2"></i>Attendance Slots Management
               </a>
               <a href="../module3/attendance_list.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-people-fill me-2"></i>Attendance Verification
+                <i class="bi bi-person-check-fill me-2"></i>Attendance Verification
               </a>
             <?php endif; ?>
           </div>
