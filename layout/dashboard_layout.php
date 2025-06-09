@@ -90,10 +90,10 @@ $stmt->close();
               <a href="../module2/student_committee.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i> My Committee
               </a>
-              <a href="../module3/list_slots_st" class="list-group-item list-group-item-action border-0">
+              <a href="../module3/list_slots_st.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-calendar2-week me-2"></i>Attendance Slots
               </a>
-              <a href="../module3/view_myattendance" class="list-group-item list-group-item-action border-0">
+              <a href="../module3/view_myattendance.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-calendar2-week me-2"></i>My Attendance 
               </a>
 
