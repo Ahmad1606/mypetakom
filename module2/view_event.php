@@ -55,6 +55,7 @@ $row = $result->fetch_assoc();
           <p><strong>Time:</strong> <?= $row['Time'] ?></p>
           <p><strong>Location:</strong> <?= htmlspecialchars($row['Location']) ?></p>
           <p><strong>Status:</strong> <span class="badge bg-<?= $row['Status'] === 'Completed' ? 'success' : ($row['Status'] === 'Upcoming' ? 'primary' : ($row['Status'] === 'Cancelled' ? 'danger' : 'secondary')) ?>"><?= $row['Status'] ?></span></p>
+          <p><strong>Event Level:</strong> <?= $row['Level'] ?></p>
           <?php if (!empty($row['ApprovalLetter'])): ?>
             <p><strong>Approval Letter:</strong> <a href="../uploads/approvalLetters/<?= $row['ApprovalLetter'] ?>" target="_blank">View PDF</a></p>
           <?php endif; ?>

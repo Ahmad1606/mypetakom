@@ -4,10 +4,29 @@ include '../layout/dashboard_layout.php';
 include '../db/connect.php';
 
 $UserID = $_SESSION['UserID'] ?? null;
+$Role = $_SESSION['Role'] ?? null;
 
 if (!$UserID) {
     header("Location: ../module1/index.php");
     exit();
+}
+
+// If student, check membership status
+if ($Role === 'ST') {
+    $sql = "SELECT Status FROM Membership WHERE UserID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $UserID);
+    $stmt->execute();
+    $stmt->bind_result($status);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (strtolower($status) !== 'approved') {
+        $_SESSION['message'] = "Access denied. Your membership is not yet approved.";
+        $_SESSION['msg_type'] = "danger";
+        header("Location: student_membership.php");
+        exit();
+    }
 }
 
 // Get current user info

@@ -1,6 +1,5 @@
 <?php
-// dashboard_layout.php
-
+//dashboard_layout.php
 include '../db/config_all.php';
 include '../db/connect.php';
 
@@ -79,37 +78,44 @@ $stmt->close();
           </div>
           <div class="list-group list-group-flush">
             <?php if ($Role === "ST"): ?>
-              <a href="#" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
-              <a href="student_membership.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/student_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-card-heading me-2"></i>Register Membership
               </a>
-              <a href="#" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-folder-fill me-2"></i>My Events (soon)
+              <a href="../module2/student_event.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-folder-fill me-2"></i>Events 
               </a>
-              <a href="/mypetakom-1/module3/list_slots_st.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-calendar2-week me-2"></i>Attendance Slots 
+              <a href="../module2/student_committee.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i> My Committee
               </a>
-              <a href="/mypetakom-1/module3/view_myattendance.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module3/list_slots_st" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-calendar2-week me-2"></i>Attendance Slots
+              </a>
+              <a href="../module3/view_myattendance" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-calendar2-week me-2"></i>My Attendance 
               </a>
 
             <?php elseif ($Role === "PA"): ?>
-              <a href="manage_membership.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/manage_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-gear-fill me-2"></i>Manage Membership
               </a>
-              <a href="admin_profile.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/admin_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>User Profiles
               </a>
-               <a href="../module3/attendance_report.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-people-fill me-2"></i>Attendance Report
+              <a href="../module2/admin_event.php" class="list-group-item list-group-item-action border-0 ">
+                <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
-                
-                    
+              <a href="../module2/manage_merit.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-journal me-2"></i>Merit Management
+              </a>
+              <a href="../module3/attendance_report.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-journal me-2"></i>Attendance Report
+              </a>
 
             <?php elseif ($Role === "EA"): ?>
-              <a href="#" class="list-group-item list-group-item-action border-0">
+              <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
               <a href="../module2/advisor_dashboard.php" class="list-group-item list-group-item-action border-0">
@@ -118,18 +124,17 @@ $stmt->close();
               <a href="../module2/manage_event.php" class="list-group-item list-group-item-action border-0 ">
                 <i class="bi bi-calendar-event-fill me-2"></i>Event Management
               </a>
-      
-              <a href="../module3/manage_attendance.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-people-fill me-2"></i>Attendance Slots Management
-              </a>
-              <a href="../module3/attendance_list.php" class="list-group-item list-group-item-action border-0">
-                <i class="bi bi-people-fill me-2"></i>Attendance Verification 
-              </a>
-              <a href="../module2/manage_committee.php" class="list-group-item list-group-item-action border-0">
+              <a href="../module2/manage_committeeV2.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-people-fill me-2"></i>Committee Management
               </a>
               <a href="../module2/merit_application.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-journal me-2"></i>Merit Application
+              </a>
+              <a href="../module3/manage_attendance.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i>Attendance Slots Management
+              </a>
+              <a href="../module3/attendance_list.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people-fill me-2"></i>Attendance Verification
               </a>
             <?php endif; ?>
           </div>
