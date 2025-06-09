@@ -8,69 +8,36 @@ if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'ST') {
     exit();
 }
 
-$UserID = $_SESSION['UserID'];
-$selectedAid = $_GET['aid'] ?? '';
+$AttendanceID = $_GET['aid'] ?? null;
 
-// Handle attendance submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['AttendanceID'])) {
-    $AttendanceID = $_POST['AttendanceID'];
-    $Location = $_POST['Location'];
-    $EventID = $_POST['EventID'];
-    $AttendanceTime = date("H:i:s");
-    $status = 'Pending';
-
-    $stmt = $conn->prepare("INSERT INTO attendance (AttendanceID, UserID, EventID, AttendanceTime, Location, AttendanceStatus) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $AttendanceID, $UserID, $EventID, $AttendanceTime, $Location, $status);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "<script>alert('Attendance submitted successfully!'); window.location.href='attendance_list.php';</script>";
+if (!$AttendanceID) {
+    echo "<script>alert('Invalid QR access.'); window.location.href='list_slots_student.php';</script>";
     exit();
 }
 
-$slotQuery = "SELECT AttendanceID, EventID, Location FROM attendance_slot";
-$slots = $conn->query($slotQuery);
+// Get QR filename from DB
+$stmt = $conn->prepare("SELECT QRCodeAttendance FROM attendance_slot WHERE AttendanceID = ?");
+$stmt->bind_param("s", $AttendanceID);
+$stmt->execute();
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
+$stmt->close();
 ?>
 
 <div class="main">
-  <h2>Submit Attendance</h2>
-  <form method="POST">
-    <div class="mb-3">
-      <label for="AttendanceID">Select Attendance Slot</label>
-      <select name="AttendanceID" id="AttendanceID" required>
-        <option value="">-- Select Slot --</option>
-        <?php while ($row = $slots->fetch_assoc()):
-          $selected = ($row['AttendanceID'] === $selectedAid) ? 'selected' : '';
-        ?>
-          <option value="<?= $row['AttendanceID'] ?>" data-event="<?= $row['EventID'] ?>" data-location="<?= $row['Location'] ?>" <?= $selected ?>>
-            <?= $row['AttendanceID'] ?> - <?= $row['Location'] ?>
-          </option>
-        <?php endwhile; ?>
-      </select>
+    <div class="container" style="text-align: center;">
+        <h2>Attendance QR Code</h2>
+        <?php if ($data && $data['QRCodeAttendance']): ?>
+            <p>Scan this QR code to check in for <strong><?= htmlspecialchars($AttendanceID) ?></strong></p>
+            <img src="../uploads/qr/<?= htmlspecialchars($data['QRCodeAttendance']) ?>" alt="QR Code" style="width:250px;height:250px;border-radius:10px;">
+
+            <br><br>
+            <a href="list_slots_st.php" class="btn btn-secondary" style="padding:8px 18px; text-decoration:none; background:#6c757d; color:white; border-radius:5px;">← Back to Slot List</a>
+        <?php else: ?>
+            <p style="color:red;">QR Code not found for this attendance slot.</p>
+            <a href="list_slots_st.php" class="btn btn-secondary" style="padding:8px 18px; text-decoration:none; background:#6c757d; color:white; border-radius:5px;">← Back to Slot List</a>
+        <?php endif; ?>
     </div>
-    <input type="hidden" name="EventID" id="EventID">
-    <input type="hidden" name="Location" id="Location">
-    <button type="submit">Submit Attendance</button>
-  </form>
 </div>
-
-<script>
-  const dropdown = document.getElementById("AttendanceID");
-  const eventInput = document.getElementById("EventID");
-  const locationInput = document.getElementById("Location");
-
-  function updateHiddenFields() {
-    const selected = dropdown.options[dropdown.selectedIndex];
-    eventInput.value = selected.getAttribute('data-event');
-    locationInput.value = selected.getAttribute('data-location');
-  }
-
-  dropdown.addEventListener('change', updateHiddenFields);
-
-  // Auto-trigger if pre-selected from ?aid=
-  if (dropdown.value !== '') {
-    updateHiddenFields();
-  }
-</script>
 
 <?php $conn->close(); ?>
