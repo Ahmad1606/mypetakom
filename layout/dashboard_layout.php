@@ -14,6 +14,19 @@ $stmt->execute();
 $stmt->bind_result($Name);
 $stmt->fetch();
 $stmt->close();
+
+$isApproved = false;
+
+if ($Role === "ST" && $UserID) {
+    $stmt = $conn->prepare("SELECT Status FROM Membership WHERE UserID = ?");
+    $stmt->bind_param("s", $UserID);
+    $stmt->execute();
+    $stmt->bind_result($status);
+    if ($stmt->fetch() && strtolower($status) === 'approved') {
+        $isApproved = true;
+    }
+    $stmt->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,25 +55,25 @@ $stmt->close();
     </div>
   </nav>
 
-  <!-- Nav Pills + Logout -->
+  <!-- Top Bar with Logout -->
   <div class="bg-white border-bottom px-4 py-2">
     <div class="d-flex justify-content-between align-items-center flex-wrap">
       <ul class="nav nav-pills mb-0">
-        <li class="nav-item">
-          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active text-white' : 'text-primary' ?>" href="dashboard.php"><b>Dashboard</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'events.php' ? 'active text-white' : 'text-primary' ?>" href="events.php"><b>Events</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Attendance</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Committees</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Merit Application</b></a>
-        </li>
+        <?php if ($Role === "ST"): ?>
+          <li class="nav-item">
+          <a class="nav-link text-primary" href="../module1/student_dashboard.php"><b>Dashboard</b></a>
+         </li>
+        <?php elseif ($Role === "PA"): ?>
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="../module1/admin_dashboard.php"><b>Dashboard</b></a>
+          </li>
+        <?php elseif ($Role === "EA"): ?>
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="../module2/advisor_dashboard.php"><b>Dashboard</b></a>
+          </li>
+
+          <?php endif; ?>
+       
       </ul>
       <a href="../module1/logout.php" class="btn btn-danger rounded-pill px-4">Logout</a>
     </div>
@@ -77,7 +90,14 @@ $stmt->close();
             <?= ($Role === "ST" ? "Student" : ($Role === "PA" ? "Administrator" : "Event advisor")) ?> Menu
           </div>
           <div class="list-group list-group-flush">
+
+          <!-- Student -->
             <?php if ($Role === "ST"): ?>
+              <?php if (!$isApproved): ?>
+              <a href="../module1/student_membership.php" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-card-heading me-2"></i>Register Membership
+              </a>
+            <?php else: ?>
               <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile
               </a>
@@ -96,7 +116,10 @@ $stmt->close();
               <a href="../module3/view_myattendance.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-clock-history me-2"></i>My Attendance 
               </a>
+            <?php endif; ?>
 
+
+            <!-- Administrator -->
             <?php elseif ($Role === "PA"): ?>
               <a href="../module1/manage_membership.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-gear-fill me-2"></i>Manage Membership
@@ -114,6 +137,7 @@ $stmt->close();
                 <i class="bi bi-bar-chart-line-fill me-2"></i>Attendance Report
               </a>
 
+            <!-- Event Advisor -->
             <?php elseif ($Role === "EA"): ?>
               <a href="../module1/edit_profile.php" class="list-group-item list-group-item-action border-0">
                 <i class="bi bi-person-fill me-2"></i>User Profile

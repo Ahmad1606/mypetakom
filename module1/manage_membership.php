@@ -3,7 +3,7 @@ session_start();
 include '../layout/dashboard_layout.php';
 include '../db/connect.php';
 
-$sql = "SELECT m.MembershipID, u.UserID, u.Name, m.Status, m.StudentCard
+$sql = "SELECT m.MembershipID, u.UserID, u.Name, m.StudentCard, m.Status
         FROM Membership m
         JOIN User u ON m.UserID = u.UserID
         ORDER BY u.UserID ASC";

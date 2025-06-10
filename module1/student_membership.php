@@ -33,7 +33,7 @@ $canReapply = !$Status || strtolower($Status) === 'rejected';
       <div class="mb-3">
         <label for="student_card" class="form-label">Upload Student Card</label>
         <input type="file" class="form-control" id="student_card" name="student_card" required accept=".jpg,.jpeg,.png,.pdf" onchange="previewFile(this)">
-        <div class="form-text">Accepted file types: JPG, PNG, PDF.</div>
+        <div class="form-text">Accepted file types: JPG, PNG.</div>
       </div>
 
       <div id="preview" class="mb-3"></div>
@@ -59,19 +59,12 @@ $canReapply = !$Status || strtolower($Status) === 'rejected';
     if (!file) return;
 
     const ext = file.name.split('.').pop().toLowerCase();
-    if (['jpg', 'jpeg', 'png'].includes(ext)) {
       const img = document.createElement('img');
       img.src = URL.createObjectURL(file);
       img.style.maxWidth = '100%';
       img.style.maxHeight = '300px';
       img.onload = () => URL.revokeObjectURL(img.src);
       preview.appendChild(img);
-    } else if (ext === 'pdf') {
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(file);
-      link.target = '_blank';
-      link.textContent = 'Preview PDF';
-      preview.appendChild(link);
     }
-  }
+  
 </script>
