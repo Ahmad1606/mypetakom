@@ -38,7 +38,6 @@ $query = $conn->query("
 
 <div class="p-4 bg-white shadow rounded-3">
   <h3>Manage Merit Applications</h3>
-  <p>This page is accessible only to Petakom Admins (PA).</p>
   <?= $message ?>
 
   <table class="table table-bordered table-hover mt-4">
