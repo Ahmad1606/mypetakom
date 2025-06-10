@@ -3,6 +3,11 @@ include '../layout/dashboard_layout.php';
 include '../db/connect.php';
 require_once '../lib/phpqrcode/qrlib.php';
 
+if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'EA') {
+    header("Location: ../module1/index.php");
+    exit();
+}
+
 $UserID = $_SESSION['UserID'];
 
 // Add Event
