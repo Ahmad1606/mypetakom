@@ -49,18 +49,7 @@ $stmt->close();
         <li class="nav-item">
           <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active text-white' : 'text-primary' ?>" href="dashboard.php"><b>Dashboard</b></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'events.php' ? 'active text-white' : 'text-primary' ?>" href="events.php"><b>Events</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Attendance</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Committees</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="#"><b>Merit Application</b></a>
-        </li>
+        
       </ul>
       <a href="../module1/logout.php" class="btn btn-danger rounded-pill px-4">Logout</a>
     </div>
