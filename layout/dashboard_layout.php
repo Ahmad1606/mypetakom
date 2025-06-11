@@ -59,6 +59,7 @@ if ($Role === "ST" && $UserID) {
   <div class="bg-white border-bottom px-4 py-2">
     <div class="d-flex justify-content-between align-items-center flex-wrap">
       <ul class="nav nav-pills mb-0">
+<<<<<<< HEAD
         <?php if ($Role === "ST"): ?>
           <li class="nav-item">
           <a class="nav-link text-primary" href="../module1/student_dashboard.php"><b>Dashboard</b></a>
@@ -74,6 +75,12 @@ if ($Role === "ST" && $UserID) {
 
           <?php endif; ?>
        
+=======
+        <li class="nav-item">
+          <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active text-white' : 'text-primary' ?>" href="dashboard.php"><b>Dashboard</b></a>
+        </li>
+        
+>>>>>>> module2
       </ul>
       <a href="../module1/logout.php" class="btn btn-danger rounded-pill px-4">Logout</a>
     </div>
