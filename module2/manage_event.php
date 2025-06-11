@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_event'])) {
         move_uploaded_file($_FILES['approval_letter']['tmp_name'], $uploadDir . $approvalLetter);
     }
 
-    $stmt = $conn->prepare("INSERT INTO event (EventID, Title, Description, Date, Time, Location, Status, level, UserID, ApprovalLetter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssss", $eventID, $title, $description, $date, $time, $location, $status, $level, $UserID, $approvalLetter);
+    $stmt = $conn->prepare("INSERT INTO event (EventID, Title, Description, Date, Time, Location, Status, Level, UserID, ApprovalLetter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssss", $eventID, $title, $description, $date, $time, $location, $status, $level, $UserID, $approvalLetter);
     $stmt->execute();
     $stmt->close();
 
