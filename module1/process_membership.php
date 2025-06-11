@@ -2,28 +2,33 @@
 session_start();
 include '../db/connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['MembershipID'], $_POST['action'])) {
+$ApprovedBy = $_SESSION['UserID'] ?? null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $MembershipID = $_POST['MembershipID'];
     $action = $_POST['action'];
 
     if ($action === 'approve') {
-        $sql = "UPDATE Membership SET Status = 'Approved' WHERE MembershipID = ?";
-    } elseif ($action === 'reject') {
-        $sql = "UPDATE Membership SET Status = 'Rejected' WHERE MembershipID = ?";
+        $status = 'Approved';
+        $date = date("Y-m-d");
+
+        $stmt = $conn->prepare("UPDATE Membership SET Status = ?, ApprovalDate = ?, ApprovedBy = ? WHERE MembershipID = ?");
+        $stmt->bind_param("ssss", $status, $date, $ApprovedBy, $MembershipID);
+    } else {
+        $status = 'Rejected';
+        $stmt = $conn->prepare("UPDATE Membership SET Status = ?, ApprovalDate = NULL, ApprovedBy = NULL WHERE MembershipID = ?");
+        $stmt->bind_param("ss", $status, $MembershipID);
     }
 
-    if (isset($sql)) {
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $MembershipID);
-        if ($stmt->execute()) {
-            $_SESSION['message'] = "Membership status updated.";
-            $_SESSION['msg_type'] = "success";
-        } else {
-            $_SESSION['message'] = "Failed to update.";
-            $_SESSION['msg_type'] = "danger";
-        }
-        $stmt->close();
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Membership $status successfully.";
+        $_SESSION['msg_type'] = "success";
+    } else {
+        $_SESSION['message'] = "Failed to update membership.";
+        $_SESSION['msg_type'] = "danger";
     }
+
+    $stmt->close();
 }
 
 header("Location: manage_membership.php");

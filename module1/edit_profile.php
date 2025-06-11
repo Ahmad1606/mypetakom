@@ -11,23 +11,6 @@ if (!$UserID) {
     exit();
 }
 
-// If student, check membership status
-if ($Role === 'ST') {
-    $sql = "SELECT Status FROM Membership WHERE UserID = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $UserID);
-    $stmt->execute();
-    $stmt->bind_result($status);
-    $stmt->fetch();
-    $stmt->close();
-
-    if (strtolower($status) !== 'approved') {
-        $_SESSION['message'] = "Access denied. Your membership is not yet approved.";
-        $_SESSION['msg_type'] = "danger";
-        header("Location: student_membership.php");
-        exit();
-    }
-}
 
 // Get current user info
 $stmt = $conn->prepare("SELECT Email, PhoneNumber FROM User WHERE UserID = ?");
