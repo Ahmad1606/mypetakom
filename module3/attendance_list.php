@@ -3,18 +3,38 @@ session_start();
 include '../layout/dashboard_layout.php';
 include '../db/connect.php';
 
-if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'EA') {
+if (!isset($_SESSION['UserID']) || ($_SESSION['Role'] !== 'EA')) {
     header("Location: ../module1/index.php");
     exit();
 }
 
-// Handle approval/rejection
+// Handle approval/rejection based on location
 if (isset($_GET['action']) && isset($_GET['aid']) && isset($_GET['uid'])) {
     $status = ($_GET['action'] === 'approve') ? 'Approved' : 'Rejected';
     $AttendanceID = $_GET['aid'];
     $UserID = $_GET['uid'];
 
-    $stmt = $conn->prepare("UPDATE attendance SET AttendanceStatus = ? WHERE AttendanceID = ? AND UserID = ?");
+    // Get the event location and the student's entered location from attendance table
+    $location_query = "
+        SELECT s.Location AS SlotLocation, a.Location AS StudentLocation
+        FROM attendance a
+        JOIN attendance_slot s ON a.AttendanceID = s.AttendanceID
+        WHERE a.AttendanceID = ? AND a.UserID = ?
+    ";
+    $stmt = $conn->prepare($location_query);
+    $stmt->bind_param("ss", $AttendanceID, $UserID);
+    $stmt->execute();
+    $location_result = $stmt->get_result();
+    $location_data = $location_result->fetch_assoc();
+
+    // If the student's entered location matches the event location, auto-approve
+    if (trim($location_data['SlotLocation']) === trim($location_data['StudentLocation'])) {
+        $status = 'Approved';
+    }
+
+    // Update attendance status
+    $update_query = "UPDATE attendance SET AttendanceStatus = ? WHERE AttendanceID = ? AND UserID = ?";
+    $stmt = $conn->prepare($update_query);
     $stmt->bind_param("sss", $status, $AttendanceID, $UserID);
     $stmt->execute();
     $stmt->close();
@@ -56,6 +76,7 @@ $result = $conn->query($query);
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Attendance ID</th>
                     <th>Student</th>
                     <th>Event</th>
                     <th>Date</th>
@@ -68,6 +89,7 @@ $result = $conn->query($query);
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
+                        <td><?= $row['AttendanceID'] ?></td>
                         <td><?= $row['UserID'] ?> - <?= $row['Name'] ?></td>
                         <td><?= $row['EventTitle'] ?></td>
                         <td><?= $row['AttendanceDate'] ?></td>

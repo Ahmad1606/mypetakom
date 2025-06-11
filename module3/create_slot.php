@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['UserID']) || ($_SESSION['Role'] !== 'PA' && $_SESSION['Role'] !== 'EA')) {
+if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'EA') {
     header("Location: ../module1/index.php");
     exit();
 }
@@ -12,14 +12,38 @@ include '../lib/phpqrcode/phpqrcode.php';
 
 $success = false;
 
+// Get the latest Attendance ID and auto-increment it
+$query = "SELECT MAX(AttendanceID) AS max_id FROM attendance_slot";
+$result = $conn->query($query);
+$row = $result->fetch_assoc();
+$max_id = $row['max_id'];
+
+if ($max_id) {
+    // Increment the numeric part of the Attendance ID (assuming format A001, A002, ...)
+    $num = (int)substr($max_id, 1) + 1; // Extract numeric part, increment, and reformat
+    $AttendanceID = 'A' . str_pad($num, 3, '0', STR_PAD_LEFT);
+} else {
+    // If no attendance slots exist, start with A001
+    $AttendanceID = 'A001';
+}
+
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_slot'])) {
-    $AttendanceID = trim($_POST['AttendanceID']);
     $EventID = $_POST['EventID'];
-    $Location = $_POST['Location'];
     $StartTime = $_POST['StartTime'];
     $EndTime = $_POST['EndTime'];
     $Date = $_POST['AttendanceDate'];
 
+    // Fetch event location automatically from the event table
+    $event_query = "SELECT Location FROM event WHERE EventID = ?";
+    $stmt = $conn->prepare($event_query);
+    $stmt->bind_param("s", $EventID);
+    $stmt->execute();
+    $event_result = $stmt->get_result();
+    $event_data = $event_result->fetch_assoc();
+    $Location = $event_data['Location']; // Automatically set the event location
+
+    // Check if the Attendance ID already exists
     $check = $conn->prepare("SELECT 1 FROM attendance_slot WHERE AttendanceID = ?");
     $check->bind_param("s", $AttendanceID);
     $check->execute();
@@ -43,6 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_slot'])) {
 
         if ($stmt->execute()) {
             $success = true;
+            // Redirect EA to the manage attendance slots page after successful creation
+            header("Location: manage_attendance.php?status=created");
+            exit();
         } else {
             $error = "Database error: {$stmt->error}";
         }
@@ -75,7 +102,7 @@ $events = $conn->query("SELECT EventID, Title FROM event");
 
             <div class="form-group">
                 <label>Attendance ID</label>
-                <input type="text" name="AttendanceID" class="form-control" required>
+                <input type="text" name="AttendanceID" class="form-control" value="<?= $AttendanceID ?>" readonly>
             </div>
 
             <div class="form-group">
@@ -86,11 +113,6 @@ $events = $conn->query("SELECT EventID, Title FROM event");
                         <option value="<?= $e['EventID'] ?>">[<?= $e['EventID'] ?>] <?= $e['Title'] ?></option>
                     <?php endwhile; ?>
                 </select>
-            </div>
-
-            <div class="form-group">
-                <label>Location</label>
-                <input type="text" name="Location" class="form-control" required>
             </div>
 
             <div class="form-group">

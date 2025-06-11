@@ -11,7 +11,7 @@ if (!isset($_SESSION['UserID']) || $_SESSION['Role'] !== 'ST') {
 $UserID = $_SESSION['UserID'];
 
 $stmt = $conn->prepare("
-    SELECT a.AttendanceID, e.Title AS EventTitle, a.AttendanceTime, a.Location, a.AttendanceStatus
+    SELECT a.AttendanceID, e.Title AS EventTitle, e.Date AS EventDate, a.AttendanceTime, a.Location, a.AttendanceStatus
     FROM attendance a
     JOIN attendance_slot s ON a.AttendanceID = s.AttendanceID
     JOIN event e ON s.EventID = e.EventID
@@ -30,7 +30,9 @@ $result = $stmt->get_result();
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Attendance ID</th>
                     <th>Event Title</th>
+                    <th>Event Date</th>
                     <th>Attendance Time</th>
                     <th>Location</th>
                     <th>Status</th>
@@ -40,7 +42,9 @@ $result = $stmt->get_result();
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
+                            <td><?= htmlspecialchars($row['AttendanceID']) ?></td>
                             <td><?= htmlspecialchars($row['EventTitle']) ?></td>
+                            <td><?= htmlspecialchars($row['EventDate']) ?></td>
                             <td><?= htmlspecialchars($row['AttendanceTime']) ?></td>
                             <td><?= htmlspecialchars($row['Location']) ?></td>
                             <td>
@@ -54,7 +58,7 @@ $result = $stmt->get_result();
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
-                    <tr><td colspan="4">No attendance records found.</td></tr>
+                    <tr><td colspan="6">No attendance records found.</td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -62,3 +66,4 @@ $result = $stmt->get_result();
 </div>
 
 <?php $stmt->close(); $conn->close(); ?>
+

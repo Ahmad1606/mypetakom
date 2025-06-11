@@ -8,19 +8,36 @@ if (!isset($_SESSION['UserID']) || ($_SESSION['Role'] !== 'PA' && $_SESSION['Rol
     exit();
 }
 
+// Check for search query
+$searchQuery = isset($_GET['search']) ? "%" . $_GET['search'] . "%" : "%";
+
 $query = "
     SELECT a.AttendanceID, a.EventID, e.Title AS EventTitle, a.Location,
            a.AttendanceStartTime, a.AttendanceEndTime, a.AttendanceDate, a.QRCodeAttendance
     FROM attendance_slot a
     JOIN event e ON a.EventID = e.EventID
+    WHERE e.Title LIKE ?
     ORDER BY a.AttendanceDate DESC, a.AttendanceStartTime ASC
 ";
-$result = $conn->query($query);
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $searchQuery);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <div class="main">
     <div class="container">
         <h2>Manage Attendance Slots</h2>
+
+        <!-- Search Form -->
+        <form method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search by event name"
+                       value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
 
         <!-- Alert messages -->
         <?php if (isset($_GET['status'])): ?>
@@ -81,4 +98,5 @@ $result = $conn->query($query);
     </div>
 </div>
 
-<?php $conn->close(); ?>
+<?php $stmt->close(); $conn->close(); ?>
+
